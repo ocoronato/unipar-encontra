@@ -93,10 +93,13 @@ class LostFoundItem extends Model
 
     /**
      * Existe alguma solicitação de devolução pendente ou aprovada?
+     *
+     * Em listagens, use o scope withOpenReturnRequestsFlag() para carregar
+     * o valor junto com a consulta e evitar uma consulta extra por linha.
      */
     public function hasOpenReturnRequests(): bool
     {
-        return $this->returnRequests()->open()->exists();
+        return $this->has_open_return_requests ?? $this->returnRequests()->open()->exists();
     }
 
     /**
@@ -127,5 +130,13 @@ class LostFoundItem extends Model
     public function scopeOfType(Builder $query, ItemType $type): void
     {
         $query->where('type', $type);
+    }
+
+    /**
+     * Carrega "has_open_return_requests" (usado por hasOpenReturnRequests()).
+     */
+    public function scopeWithOpenReturnRequestsFlag(Builder $query): void
+    {
+        $query->withExists(['returnRequests as has_open_return_requests' => fn ($q) => $q->open()]);
     }
 }

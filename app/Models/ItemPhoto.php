@@ -39,6 +39,14 @@ class ItemPhoto extends Model
         'original_name',
     ];
 
+    /**
+     * Ao excluir a foto do banco, o arquivo também é apagado do Storage.
+     */
+    protected static function booted(): void
+    {
+        static::deleted(fn (ItemPhoto $photo) => Storage::disk('public')->delete($photo->path));
+    }
+
     public function lostFoundItem(): BelongsTo
     {
         return $this->belongsTo(LostFoundItem::class);

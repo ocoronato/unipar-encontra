@@ -79,9 +79,6 @@ return [
         'occurred_at' => [
             'before_or_equal' => 'A data não pode ser futura.',
         ],
-        'photos' => [
-            'max' => 'São permitidas no máximo :max fotos por objeto.',
-        ],
         'photos.*' => [
             'image' => 'Envie apenas imagens JPG, PNG ou WEBP.',
             'mimes' => 'Envie apenas imagens JPG, PNG ou WEBP.',

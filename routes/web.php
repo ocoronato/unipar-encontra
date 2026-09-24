@@ -11,14 +11,17 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('objetos/perdido/novo', 'items.form')->defaults('type', 'lost')->name('items.create.lost');
     Volt::route('objetos/encontrado/novo', 'items.form')->defaults('type', 'found')->name('items.create.found');
 
+    Volt::route('objetos/{item}/editar', 'items.form')->whereNumber('item')->name('items.edit');
+
     Volt::route('buscar', 'items.search')->name('items.search');
     Volt::route('objetos/{item}', 'items.show')->whereNumber('item')->name('items.show');
 
-    // Telas provisórias: serão substituídas pelos componentes das próximas etapas.
+    Volt::route('meus-objetos', 'items.mine')->name('items.mine');
+    Volt::route('minhas-solicitacoes', 'return-requests.mine')->name('return-requests.mine');
+
+    // Tela provisória: será substituída na próxima etapa.
     Route::view('objetos/{item}/solicitar-devolucao', 'coming-soon', ['title' => 'Solicitar Devolução'])
         ->whereNumber('item')->name('return-requests.create');
-    Route::view('meus-objetos', 'coming-soon', ['title' => 'Meus Objetos'])->name('items.mine');
-    Route::view('minhas-solicitacoes', 'coming-soon', ['title' => 'Minhas Solicitações'])->name('return-requests.mine');
 
     Route::redirect('settings', 'settings/profile');
 

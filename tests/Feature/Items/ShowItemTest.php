@@ -16,7 +16,8 @@ class ShowItemTest extends TestCase
 
     public function test_details_show_item_data_without_owner_personal_data(): void
     {
-        $item = LostFoundItem::factory()->found()->approved()->create([
+        $owner = User::factory()->create(['name' => 'Dono Sigiloso', 'email' => 'dono.sigiloso@example.com', 'registration_number' => 'RA998877']);
+        $item = LostFoundItem::factory()->found()->approved()->for($owner)->create([
             'title' => 'Calculadora científica',
             'description' => 'Calculadora com capa verde.',
         ]);
@@ -30,9 +31,9 @@ class ShowItemTest extends TestCase
             ->assertSee($item->location->name)
             ->assertSee($item->occurred_at->format('d/m/Y'))
             ->assertSee('Encontrado')
-            ->assertDontSee($item->user->name)
-            ->assertDontSee($item->user->email)
-            ->assertDontSee($item->user->registration_number);
+            ->assertDontSee('Dono Sigiloso')
+            ->assertDontSee('dono.sigiloso@example.com')
+            ->assertDontSee('RA998877');
     }
 
     public function test_pending_items_are_hidden_from_other_users(): void

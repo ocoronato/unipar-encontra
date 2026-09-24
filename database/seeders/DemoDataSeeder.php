@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ItemType;
+use App\Enums\ReturnRequestStatus;
 use App\Models\Category;
 use App\Models\Location;
 use App\Models\LostFoundItem;
+use App\Models\ReturnRequest;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -81,6 +84,19 @@ class DemoDataSeeder extends Seeder
             'location_id' => $locations->random(),
             'title' => 'Pen drive vermelho',
             'description' => 'Pen drive vermelho de 32 GB encontrado em cima de uma mesa.',
+        ]);
+
+        // Solicitações de devolução do aluno de demonstração.
+        [$first, $second] = LostFoundItem::publiclyVisible()->ofType(ItemType::Found)
+            ->where('user_id', '!=', $student->id)->take(2)->get();
+
+        ReturnRequest::factory()->for($student)->for($first)->create([
+            'message' => 'Acho que é meu: tem um arranhão na lateral e perdi no mesmo dia, depois da aula.',
+        ]);
+        ReturnRequest::factory()->for($student)->for($second)->create([
+            'message' => 'Perdi um parecido na semana passada.',
+            'status' => ReturnRequestStatus::Rejected,
+            'admin_notes' => 'As características informadas não conferem com o objeto encontrado.',
         ]);
     }
 }

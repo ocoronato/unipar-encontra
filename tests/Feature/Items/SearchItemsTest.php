@@ -136,12 +136,13 @@ class SearchItemsTest extends TestCase
 
     public function test_cards_do_not_expose_owner_data(): void
     {
-        $item = LostFoundItem::factory()->approved()->create();
+        $owner = User::factory()->create(['name' => 'Dono Sigiloso', 'email' => 'dono.sigiloso@example.com', 'registration_number' => 'RA998877']);
+        $item = LostFoundItem::factory()->approved()->for($owner)->create();
 
         $this->get(route('items.search'))
             ->assertSee($item->title)
-            ->assertDontSee($item->user->name)
-            ->assertDontSee($item->user->email)
-            ->assertDontSee($item->user->registration_number);
+            ->assertDontSee('Dono Sigiloso')
+            ->assertDontSee('dono.sigiloso@example.com')
+            ->assertDontSee('RA998877');
     }
 }
