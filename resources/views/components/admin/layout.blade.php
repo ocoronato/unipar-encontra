@@ -1,7 +1,8 @@
 @props(['heading' => '', 'subheading' => ''])
 
 @php
-    // Contador de pendências exibido ao lado do item do menu.
+    // Contadores de pendências exibidos ao lado dos itens do menu.
+    $pendingItems = \App\Models\LostFoundItem::where('approval_status', \App\Enums\ApprovalStatus::Pending)->count();
     $pendingRequests = \App\Models\ReturnRequest::where('status', \App\Enums\ReturnRequestStatus::Pending)->count();
 
     // Menu da administração. Rotas ainda não criadas aparecem como "em breve".
@@ -15,7 +16,7 @@
             ['label' => 'Locais', 'icon' => 'map-pin', 'route' => 'admin.locations.index'],
         ],
         'Movimentos' => [
-            ['label' => 'Objetos', 'icon' => 'cube', 'route' => 'admin.items.index'],
+            ['label' => 'Objetos', 'icon' => 'cube', 'route' => 'admin.items.index', 'badge' => $pendingItems ?: null],
             ['label' => 'Solicitações', 'icon' => 'inbox', 'route' => 'admin.return-requests.index', 'badge' => $pendingRequests ?: null],
             ['label' => 'Devoluções', 'icon' => 'check-badge', 'route' => 'admin.returns.index'],
         ],

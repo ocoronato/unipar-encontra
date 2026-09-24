@@ -51,10 +51,13 @@ class LostFoundItemPolicy
     }
 
     /**
-     * Aprovar/rejeitar: somente administradores e somente objetos ativos.
+     * Aprovar/rejeitar: somente administradores, em objetos ativos e sem
+     * solicitação de devolução em andamento (para não deixar pedidos "órfãos").
      */
     public function moderate(User $user, LostFoundItem $item): bool
     {
-        return $user->isAdmin() && $item->status === ItemStatus::Active;
+        return $user->isAdmin()
+            && $item->status === ItemStatus::Active
+            && ! $item->hasOpenReturnRequests();
     }
 }

@@ -23,7 +23,7 @@ class LostFoundItem extends Model
     use HasFactory;
 
     /**
-     * user_id, status e approval_status NÃO são preenchíveis em massa:
+     * user_id, status, approval_status e moderation_notes NÃO são preenchíveis em massa:
      * são definidos pelo sistema (dono da publicação, moderação e devolução).
      */
     protected $fillable = [
@@ -78,6 +78,22 @@ class LostFoundItem extends Model
     public function itemReturn(): HasOne
     {
         return $this->hasOne(ItemReturn::class);
+    }
+
+    /**
+     * Moderação: publica o objeto na busca.
+     */
+    public function approve(): void
+    {
+        $this->forceFill(['approval_status' => ApprovalStatus::Approved, 'moderation_notes' => null])->save();
+    }
+
+    /**
+     * Moderação: retira o objeto da busca, informando o motivo ao autor.
+     */
+    public function reject(string $reason): void
+    {
+        $this->forceFill(['approval_status' => ApprovalStatus::Rejected, 'moderation_notes' => $reason])->save();
     }
 
     /**

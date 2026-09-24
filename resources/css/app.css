@@ -48,6 +48,23 @@
     }
 }
 
+/*
+ * Cores do gráfico do dashboard (perdidos x encontrados).
+ * Mesma associação dos badges: perdido = laranja, encontrado = verde.
+ * Tons verificados para daltonismo e contraste em cada tema.
+ */
+.viz-root {
+    --series-lost: #eb6834;
+    --series-found: #1baf7a;
+    --viz-grid: #e4e4e7;
+}
+
+.dark .viz-root {
+    --series-lost: #d95926;
+    --series-found: #199e70;
+    --viz-grid: #3f3f46;
+}
+
 [data-flux-field] {
     @apply grid gap-2;
 }

@@ -83,7 +83,14 @@ new #[Title('Meus Objetos')] class extends Component {
                         <flux:table.cell>
                             <div class="flex items-center gap-3">
                                 <x-item-thumbnail :item="$item" />
-                                <span class="font-medium text-zinc-800 dark:text-white">{{ $item->title }}</span>
+                                <div>
+                                    <span class="font-medium text-zinc-800 dark:text-white">{{ $item->title }}</span>
+                                    @if ($item->approval_status === \App\Enums\ApprovalStatus::Rejected && $item->moderation_notes)
+                                        <p class="max-w-xs text-xs whitespace-normal text-red-600 dark:text-red-400">
+                                            Motivo: {{ $item->moderation_notes }} Edite para corrigir e reenviar.
+                                        </p>
+                                    @endif
+                                </div>
                             </div>
                         </flux:table.cell>
                         <flux:table.cell><x-status-badge :status="$item->type" /></flux:table.cell>

@@ -59,7 +59,13 @@ class DemoDataSeeder extends Seeder
         $locations = Location::pluck('id');
 
         foreach (self::EXAMPLES as $index => [$title, $category, $description]) {
+            // Datas espalhadas pelos últimos meses (alimenta o gráfico do dashboard).
+            $createdAt = now()->subDays($index * 12)->setTime(9 + $index % 9, 30);
+
             LostFoundItem::factory()->create([
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt,
+                'occurred_at' => $createdAt->copy()->subDays($index % 3),
                 'user_id' => $others->random()->id,
                 'category_id' => $categories[$category],
                 'location_id' => $locations->random(),

@@ -37,6 +37,11 @@ Route::middleware(['auth', 'can:access-admin'])
     ->group(function () {
         Volt::route('/', 'admin.dashboard')->name('dashboard');
         Volt::route('usuarios', 'admin.users.index')->name('users.index');
+        // Categorias e Locais usam o mesmo componente de cadastro.
+        Volt::route('categorias', 'admin.catalog')->defaults('resource', 'categories')->name('categories.index');
+        Volt::route('locais', 'admin.catalog')->defaults('resource', 'locations')->name('locations.index');
+
+        Volt::route('objetos', 'admin.items.index')->name('items.index');
         Volt::route('solicitacoes', 'admin.return-requests.index')->name('return-requests.index');
         Volt::route('devolucoes', 'admin.returns.index')->name('returns.index');
     });

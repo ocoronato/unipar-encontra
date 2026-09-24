@@ -190,6 +190,8 @@ new class extends Component {
                         <flux:callout.text>
                             @if ($item->isPubliclyVisible())
                                 Ela está visível na busca para outros usuários.
+                            @elseif ($item->approval_status === \App\Enums\ApprovalStatus::Rejected)
+                                Ela foi rejeitada pela administração{{ $item->moderation_notes ? ': '.$item->moderation_notes : '.' }}
                             @else
                                 Ela não aparece na busca enquanto não for aprovada pela administração.
                             @endif
