@@ -44,6 +44,12 @@ Route::middleware(['auth', 'can:access-admin'])
         Volt::route('objetos', 'admin.items.index')->name('items.index');
         Volt::route('solicitacoes', 'admin.return-requests.index')->name('return-requests.index');
         Volt::route('devolucoes', 'admin.returns.index')->name('returns.index');
+
+        // Relatórios (Perdidos e Encontrados usam o mesmo componente).
+        Volt::route('relatorios/perdidos', 'admin.reports.items')->defaults('type', 'lost')->name('reports.lost');
+        Volt::route('relatorios/encontrados', 'admin.reports.items')->defaults('type', 'found')->name('reports.found');
+        Volt::route('relatorios/devolvidos', 'admin.reports.returned')->name('reports.returned');
+        Volt::route('relatorios/solicitacoes', 'admin.reports.requests')->name('reports.requests');
     });
 
 require __DIR__.'/auth.php';
