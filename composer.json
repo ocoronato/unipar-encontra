@@ -1,11 +1,12 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/livewire-starter-kit",
+    "name": "unipar/unipar-encontra",
     "type": "project",
-    "description": "The official Laravel starter kit for Livewire.",
+    "description": "UNIPAR ENCONTRA - Sistema web de Achados e Perdidos (Projeto Integrador de Sistemas de Informação da UNIPAR).",
     "keywords": [
         "laravel",
-        "framework"
+        "livewire",
+        "achados-e-perdidos"
     ],
     "license": "MIT",
     "require": {

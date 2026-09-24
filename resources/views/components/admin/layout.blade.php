@@ -33,8 +33,19 @@
 
 <div class="flex items-start max-md:flex-col">
     @unless ($bare)
-        <div class="mr-10 w-full pb-4 md:w-[230px] print:hidden">
-            <flux:navlist>
+        {{-- No celular o menu fica recolhido atrás de um botão (Alpine, que já vem com o Livewire). --}}
+        <div x-data="{ open: false }" class="w-full pb-4 md:mr-10 md:w-[230px] print:hidden">
+            <button
+                type="button"
+                x-on:click="open = ! open"
+                x-bind:aria-expanded="open"
+                class="flex w-full items-center justify-between rounded-lg border border-zinc-200 px-3 py-2 text-sm font-medium md:hidden dark:border-zinc-700"
+            >
+                <span class="flex items-center gap-2"><flux:icon.bars-3 variant="mini" /> Menu da administração</span>
+                <flux:icon.chevron-down variant="mini" x-bind:class="open && 'rotate-180'" class="transition" />
+            </button>
+
+            <flux:navlist class="hidden max-md:mt-3 md:block" x-bind:class="open && '!block'">
                 @foreach ($menu as $group => $items)
                     <flux:navlist.group :heading="$group" class="mb-3">
                         @foreach ($items as $item)

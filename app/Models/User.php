@@ -102,9 +102,12 @@ class User extends Authenticatable // implements MustVerifyEmail
      */
     public function initials(): string
     {
+        // Até duas iniciais, ignorando palavras que não começam com letra (ex.: "(dev)").
         return Str::of($this->name)
             ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->filter(fn (string $word) => preg_match('/^\pL/u', $word))
+            ->take(2)
+            ->map(fn (string $word) => Str::upper(Str::substr($word, 0, 1)))
             ->implode('');
     }
 }
