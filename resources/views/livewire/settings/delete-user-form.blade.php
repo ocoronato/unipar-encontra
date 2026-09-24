@@ -16,6 +16,14 @@ new class extends Component {
             'password' => ['required', 'string', 'current_password'],
         ]);
 
+        // Publicações, solicitações e devoluções fazem parte do histórico
+        // e não podem ser apagadas junto com a conta.
+        if (Auth::user()->hasHistory()) {
+            $this->addError('password', 'Sua conta possui publicações ou solicitações registradas e não pode ser excluída. Procure a administração do UNIPAR ENCONTRA.');
+
+            return;
+        }
+
         tap(Auth::user(), $logout(...))->delete();
 
         $this->redirect('/', navigate: true);

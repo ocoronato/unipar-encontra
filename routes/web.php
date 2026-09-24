@@ -19,4 +19,16 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+/*
+| Área administrativa: protegida no backend pelo Gate "access-admin".
+| O middleware "can" também é aplicado às requisições Livewire dessas páginas.
+*/
+Route::middleware(['auth', 'can:access-admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Volt::route('/', 'admin.dashboard')->name('dashboard');
+        Volt::route('usuarios', 'admin.users.index')->name('users.index');
+    });
+
 require __DIR__.'/auth.php';

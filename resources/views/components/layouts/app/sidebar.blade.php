@@ -15,6 +15,12 @@
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>Dashboard</flux:navlist.item>
                 </flux:navlist.group>
+
+                @can('access-admin')
+                    <flux:navlist.group heading="Administração" class="grid">
+                        <flux:navlist.item icon="shield-check" :href="route('admin.dashboard')" :current="request()->routeIs('admin.*')" wire:navigate>Administração</flux:navlist.item>
+                    </flux:navlist.group>
+                @endcan
             </flux:navlist>
 
             <flux:spacer />

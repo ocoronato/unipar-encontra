@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ReturnRequestStatus;
 use Database\Factories\ReturnRequestFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,5 +50,13 @@ class ReturnRequest extends Model
     public function itemReturn(): HasOne
     {
         return $this->hasOne(ItemReturn::class);
+    }
+
+    /**
+     * Solicitações ainda "em aberto" (pendentes ou aprovadas aguardando a entrega).
+     */
+    public function scopeOpen(Builder $query): void
+    {
+        $query->whereIn('status', [ReturnRequestStatus::Pending, ReturnRequestStatus::Approved]);
     }
 }

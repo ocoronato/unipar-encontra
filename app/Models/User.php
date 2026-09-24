@@ -68,6 +68,17 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->role === UserRole::Admin;
     }
 
+    /**
+     * O usuário possui registros que fazem parte do histórico do sistema?
+     * Nesse caso a conta não pode ser excluída.
+     */
+    public function hasHistory(): bool
+    {
+        return $this->lostFoundItems()->exists()
+            || $this->returnRequests()->exists()
+            || $this->processedReturns()->exists();
+    }
+
     public function lostFoundItems(): HasMany
     {
         return $this->hasMany(LostFoundItem::class);

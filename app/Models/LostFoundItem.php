@@ -81,6 +81,25 @@ class LostFoundItem extends Model
     }
 
     /**
+     * Objeto encontrado, aprovado e ainda disponível: pode receber
+     * solicitações de devolução ("Este objeto é meu").
+     */
+    public function acceptsReturnRequests(): bool
+    {
+        return $this->type === ItemType::Found
+            && $this->approval_status === ApprovalStatus::Approved
+            && $this->status === ItemStatus::Active;
+    }
+
+    /**
+     * Existe alguma solicitação de devolução pendente ou aprovada?
+     */
+    public function hasOpenReturnRequests(): bool
+    {
+        return $this->returnRequests()->open()->exists();
+    }
+
+    /**
      * Somente publicações aprovadas pela moderação.
      */
     public function scopeApproved(Builder $query): void

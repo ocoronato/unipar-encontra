@@ -9,6 +9,8 @@ use Livewire\Volt\Component;
 new class extends Component {
     public string $name = '';
     public string $email = '';
+    public string $registration_number = '';
+    public string $course = '';
 
     /**
      * Mount the component.
@@ -17,6 +19,8 @@ new class extends Component {
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->registration_number = Auth::user()->registration_number ?? '';
+        $this->course = Auth::user()->course ?? '';
     }
 
     /**
@@ -37,7 +41,16 @@ new class extends Component {
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id)
             ],
+
+            'registration_number' => ['nullable', 'alpha_num', 'max:20', Rule::unique(User::class)->ignore($user->id)],
+            'course' => ['nullable', 'string', 'max:100'],
+        ], attributes: [
+            'registration_number' => 'RA / matrícula',
+            'course' => 'curso',
         ]);
+
+        $validated['registration_number'] = $validated['registration_number'] ?: null;
+        $validated['course'] = $validated['course'] ?: null;
 
         $user->fill($validated);
 
@@ -100,6 +113,12 @@ new class extends Component {
                     </div>
                 @endif
             </div>
+
+            <div class="grid gap-6 sm:grid-cols-2">
+                <flux:input wire:model="registration_number" label="RA / matrícula" type="text" name="registration_number" autocomplete="off" />
+                <flux:input wire:model="course" label="Curso ou setor" type="text" name="course" autocomplete="off" />
+            </div>
+            <flux:text class="-mt-3 text-xs">Seu RA não é exibido publicamente. Apenas a administração tem acesso.</flux:text>
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
