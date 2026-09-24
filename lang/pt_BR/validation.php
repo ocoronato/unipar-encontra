@@ -75,7 +75,26 @@ return [
     'uploaded' => 'Falha ao enviar o arquivo :attribute.',
     'url' => 'O campo :attribute deve ser uma URL válida.',
 
-    'custom' => [],
+    'custom' => [
+        'occurred_at' => [
+            'before_or_equal' => 'A data não pode ser futura.',
+        ],
+        'photos' => [
+            'max' => 'São permitidas no máximo :max fotos por objeto.',
+        ],
+        'photos.*' => [
+            'image' => 'Envie apenas imagens JPG, PNG ou WEBP.',
+            'mimes' => 'Envie apenas imagens JPG, PNG ou WEBP.',
+            'max' => 'Cada foto deve ter no máximo 5 MB.',
+            'dimensions' => 'A foto é grande demais (máximo de 6000 x 6000 pixels).',
+        ],
+        'newPhotos.*' => [
+            'image' => 'Envie apenas imagens JPG, PNG ou WEBP.',
+            'mimes' => 'Envie apenas imagens JPG, PNG ou WEBP.',
+            'max' => 'Cada foto deve ter no máximo 5 MB.',
+            'dimensions' => 'A foto é grande demais (máximo de 6000 x 6000 pixels).',
+        ],
+    ],
 
     'attributes' => [
         'name' => 'nome',
@@ -91,6 +110,10 @@ return [
         'location_id' => 'local',
         'occurred_at' => 'data',
         'photos' => 'fotos',
+        'photos.*' => 'foto',
+        'newPhotos' => 'fotos',
+        'newPhotos.*' => 'foto',
+        'files.*' => 'foto', // upload temporário do Livewire
         'message' => 'mensagem',
     ],
 ];

@@ -2,6 +2,7 @@
 
 use App\Enums\UserRole;
 use App\Models\User;
+use Flux\Flux;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Volt\Component;
@@ -34,7 +35,7 @@ new #[Title('Usuários')] class extends Component {
         $user->role = $user->isAdmin() ? UserRole::User : UserRole::Admin;
         $user->save();
 
-        session()->flash('status', "Perfil de {$user->name} alterado para {$user->role->label()}.");
+        Flux::toast(variant: 'success', text: "Perfil de {$user->name} alterado para {$user->role->label()}.");
     }
 
     public function with(): array
@@ -55,10 +56,6 @@ new #[Title('Usuários')] class extends Component {
 }; ?>
 
 <x-admin.layout heading="Usuários" subheading="Gerencie os usuários e os administradores do sistema">
-    @if (session('status'))
-        <flux:callout variant="success" icon="check-circle" class="mb-4" :heading="session('status')" />
-    @endif
-
     <div class="mb-4 grid gap-3 sm:grid-cols-3">
         <div class="sm:col-span-2">
             <flux:input wire:model.live.debounce.400ms="search" icon="magnifying-glass" placeholder="Buscar por nome, e-mail ou RA" />
