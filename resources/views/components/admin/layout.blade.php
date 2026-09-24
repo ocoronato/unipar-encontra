@@ -1,6 +1,9 @@
 @props(['heading' => '', 'subheading' => ''])
 
 @php
+    // Contador de pendências exibido ao lado do item do menu.
+    $pendingRequests = \App\Models\ReturnRequest::where('status', \App\Enums\ReturnRequestStatus::Pending)->count();
+
     // Menu da administração. Rotas ainda não criadas aparecem como "em breve".
     $menu = [
         'Visão geral' => [
@@ -13,7 +16,7 @@
         ],
         'Movimentos' => [
             ['label' => 'Objetos', 'icon' => 'cube', 'route' => 'admin.items.index'],
-            ['label' => 'Solicitações', 'icon' => 'inbox', 'route' => 'admin.return-requests.index'],
+            ['label' => 'Solicitações', 'icon' => 'inbox', 'route' => 'admin.return-requests.index', 'badge' => $pendingRequests ?: null],
             ['label' => 'Devoluções', 'icon' => 'check-badge', 'route' => 'admin.returns.index'],
         ],
         'Relatórios' => [
@@ -36,6 +39,7 @@
                                 :icon="$item['icon']"
                                 :href="route($item['route'])"
                                 :current="request()->routeIs($item['route'])"
+                                :badge="$item['badge'] ?? null"
                                 wire:navigate
                             >{{ $item['label'] }}</flux:navlist.item>
                         @else

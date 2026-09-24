@@ -87,6 +87,13 @@ class PolicyTest extends TestCase
         $this->assertTrue($request->user->can('create', [ReturnRequest::class, $request->lostFoundItem]));
     }
 
+    public function test_user_cannot_request_again_after_rejection(): void
+    {
+        $request = ReturnRequest::factory()->create(['status' => ReturnRequestStatus::Rejected]);
+
+        $this->assertFalse($request->user->can('create', [ReturnRequest::class, $request->lostFoundItem]));
+    }
+
     public function test_return_request_view_cancel_and_review(): void
     {
         $request = ReturnRequest::factory()->create();
@@ -100,8 +107,10 @@ class PolicyTest extends TestCase
         $this->assertTrue($request->user->can('cancel', $request));
         $this->assertFalse($stranger->can('cancel', $request));
 
-        $this->assertTrue($admin->can('review', $request));
-        $this->assertFalse($request->user->can('review', $request));
+        $this->assertTrue($admin->can('approve', $request));
+        $this->assertTrue($admin->can('reject', $request));
+        $this->assertFalse($admin->can('confirmReturn', $request));
+        $this->assertFalse($request->user->can('approve', $request));
     }
 
     public function test_admin_cannot_review_own_request(): void
@@ -109,6 +118,7 @@ class PolicyTest extends TestCase
         $admin = User::factory()->admin()->create();
         $request = ReturnRequest::factory()->for($admin)->create();
 
-        $this->assertFalse($admin->can('review', $request));
+        $this->assertFalse($admin->can('approve', $request));
+        $this->assertFalse($admin->can('reject', $request));
     }
 }

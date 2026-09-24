@@ -15,9 +15,11 @@ class ItemReturn extends Model
     /** @use HasFactory<ItemReturnFactory> */
     use HasFactory;
 
+    /**
+     * Objeto, solicitação e administrador são ligados explicitamente
+     * (ver ReturnRequest::confirmReturn()), nunca por dados de formulário.
+     */
     protected $fillable = [
-        'lost_found_item_id',
-        'return_request_id',
         'returned_at',
         'notes',
     ];

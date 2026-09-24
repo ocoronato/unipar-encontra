@@ -18,10 +18,7 @@ Route::middleware(['auth'])->group(function () {
 
     Volt::route('meus-objetos', 'items.mine')->name('items.mine');
     Volt::route('minhas-solicitacoes', 'return-requests.mine')->name('return-requests.mine');
-
-    // Tela provisória: será substituída na próxima etapa.
-    Route::view('objetos/{item}/solicitar-devolucao', 'coming-soon', ['title' => 'Solicitar Devolução'])
-        ->whereNumber('item')->name('return-requests.create');
+    Volt::route('objetos/{item}/solicitar-devolucao', 'return-requests.create')->whereNumber('item')->name('return-requests.create');
 
     Route::redirect('settings', 'settings/profile');
 
@@ -40,6 +37,8 @@ Route::middleware(['auth', 'can:access-admin'])
     ->group(function () {
         Volt::route('/', 'admin.dashboard')->name('dashboard');
         Volt::route('usuarios', 'admin.users.index')->name('users.index');
+        Volt::route('solicitacoes', 'admin.return-requests.index')->name('return-requests.index');
+        Volt::route('devolucoes', 'admin.returns.index')->name('returns.index');
     });
 
 require __DIR__.'/auth.php';

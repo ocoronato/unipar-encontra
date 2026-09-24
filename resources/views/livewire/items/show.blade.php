@@ -2,6 +2,7 @@
 
 use App\Enums\ItemStatus;
 use App\Enums\ItemType;
+use App\Enums\ReturnRequestStatus;
 use App\Models\LostFoundItem;
 use App\Models\ReturnRequest;
 use App\Models\User;
@@ -56,6 +57,7 @@ new class extends Component {
             ! $this->item->isPubliclyVisible() => null,
             $this->item->type === ItemType::Lost => 'report-found',
             $this->item->returnRequests()->open()->where('user_id', $user->id)->exists() => 'requested',
+            $this->item->returnRequests()->where('user_id', $user->id)->where('status', ReturnRequestStatus::Rejected)->exists() => 'rejected',
             $user->can('create', [ReturnRequest::class, $this->item]) => 'claim',
             $this->item->status === ItemStatus::InReturnProcess => 'in-process',
             default => null,
@@ -163,6 +165,14 @@ new class extends Component {
                     <flux:callout icon="clock" color="blue" heading="Você já solicitou a devolução deste objeto.">
                         <flux:callout.text>
                             Acompanhe o andamento em <flux:link :href="route('return-requests.mine')" wire:navigate>Minhas Solicitações</flux:link>.
+                        </flux:callout.text>
+                    </flux:callout>
+                    @break
+
+                @case('rejected')
+                    <flux:callout icon="x-circle" color="red" heading="Sua solicitação para este objeto foi rejeitada.">
+                        <flux:callout.text>
+                            Veja a resposta da administração em <flux:link :href="route('return-requests.mine')" wire:navigate>Minhas Solicitações</flux:link>.
                         </flux:callout.text>
                     </flux:callout>
                     @break
