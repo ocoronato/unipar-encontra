@@ -100,11 +100,28 @@ class LostFoundItem extends Model
     }
 
     /**
+     * Publicação visível para todos os usuários: aprovada e não cancelada.
+     */
+    public function isPubliclyVisible(): bool
+    {
+        return $this->approval_status === ApprovalStatus::Approved
+            && $this->status !== ItemStatus::Cancelled;
+    }
+
+    /**
      * Somente publicações aprovadas pela moderação.
      */
     public function scopeApproved(Builder $query): void
     {
         $query->where('approval_status', ApprovalStatus::Approved);
+    }
+
+    /**
+     * Mesma regra de isPubliclyVisible(), para consultas (ex.: busca).
+     */
+    public function scopePubliclyVisible(Builder $query): void
+    {
+        $query->approved()->where('status', '!=', ItemStatus::Cancelled);
     }
 
     public function scopeOfType(Builder $query, ItemType $type): void

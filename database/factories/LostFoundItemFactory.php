@@ -32,7 +32,12 @@ class LostFoundItemFactory extends Factory
                 'Celular preto', 'Carteira marrom', 'Chaveiro com 3 chaves', 'Garrafa térmica azul',
                 'Fone de ouvido sem fio', 'Caderno de capa vermelha', 'Óculos de grau', 'Blusa cinza',
             ]),
-            'description' => fake()->paragraph(),
+            'description' => fake()->randomElement([
+                'Objeto em bom estado, com pequenos sinais de uso.',
+                'Tem um adesivo colado na parte de trás.',
+                'Estava dentro de uma sacola plástica transparente.',
+                'Possui um arranhão visível em uma das laterais.',
+            ]),
             'occurred_at' => fake()->dateTimeBetween('-30 days', 'now'),
             'status' => ItemStatus::Active,
             'approval_status' => ApprovalStatus::Pending,

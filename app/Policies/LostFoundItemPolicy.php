@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Enums\ApprovalStatus;
 use App\Enums\ItemStatus;
 use App\Models\LostFoundItem;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class LostFoundItemPolicy
 {
@@ -13,13 +13,14 @@ class LostFoundItemPolicy
      * Publicações aprovadas (e não canceladas) são públicas.
      * As demais só podem ser vistas pelo autor e pela administração.
      */
-    public function view(?User $user, LostFoundItem $item): bool
+    public function view(?User $user, LostFoundItem $item): Response
     {
-        if ($item->approval_status === ApprovalStatus::Approved && $item->status !== ItemStatus::Cancelled) {
-            return true;
+        if ($item->isPubliclyVisible() || ($user !== null && ($user->id === $item->user_id || $user->isAdmin()))) {
+            return Response::allow();
         }
 
-        return $user !== null && ($user->id === $item->user_id || $user->isAdmin());
+        // 404 em vez de 403: não revela que a publicação existe.
+        return Response::denyAsNotFound();
     }
 
     /**

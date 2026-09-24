@@ -11,9 +11,12 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('objetos/perdido/novo', 'items.form')->defaults('type', 'lost')->name('items.create.lost');
     Volt::route('objetos/encontrado/novo', 'items.form')->defaults('type', 'found')->name('items.create.found');
 
+    Volt::route('buscar', 'items.search')->name('items.search');
+    Volt::route('objetos/{item}', 'items.show')->whereNumber('item')->name('items.show');
+
     // Telas provisórias: serão substituídas pelos componentes das próximas etapas.
-    Route::view('buscar', 'coming-soon', ['title' => 'Buscar Objetos'])->name('items.search');
-    Route::view('objetos/{item}', 'coming-soon', ['title' => 'Detalhes do Objeto'])->whereNumber('item')->name('items.show');
+    Route::view('objetos/{item}/solicitar-devolucao', 'coming-soon', ['title' => 'Solicitar Devolução'])
+        ->whereNumber('item')->name('return-requests.create');
     Route::view('meus-objetos', 'coming-soon', ['title' => 'Meus Objetos'])->name('items.mine');
     Route::view('minhas-solicitacoes', 'coming-soon', ['title' => 'Minhas Solicitações'])->name('return-requests.mine');
 
