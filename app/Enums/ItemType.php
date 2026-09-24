@@ -14,4 +14,15 @@ enum ItemType: string
             self::Found => 'Encontrado',
         };
     }
+
+    /**
+     * Cor do badge (Flux) usada em toda a interface.
+     */
+    public function color(): string
+    {
+        return match ($this) {
+            self::Lost => 'orange',
+            self::Found => 'emerald',
+        };
+    }
 }

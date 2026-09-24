@@ -16,4 +16,13 @@ enum ApprovalStatus: string
             self::Rejected => 'Rejeitado',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::Pending => 'amber',
+            self::Approved => 'green',
+            self::Rejected => 'red',
+        };
+    }
 }

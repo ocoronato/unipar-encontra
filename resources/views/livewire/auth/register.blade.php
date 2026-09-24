@@ -27,9 +27,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'registration_number' => ['nullable', 'alpha_num', 'max:20', 'unique:' . User::class],
             'course' => ['nullable', 'string', 'max:100'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-        ], attributes: [
-            'registration_number' => 'RA / matrícula',
-            'course' => 'curso',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -41,12 +38,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('home', absolute: false), navigate: true);
     }
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header title="Create an account" description="Enter your details below to create your account" />
+    <x-auth-header title="Criar conta" description="Preencha seus dados para usar o UNIPAR ENCONTRA" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -54,7 +51,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <form wire:submit="register" class="flex flex-col gap-6">
         <!-- Name -->
         <div class="grid gap-2">
-            <flux:input wire:model="name" id="name" label="{{ __('Name') }}" type="text" name="name" required autofocus autocomplete="name" placeholder="Full name" />
+            <flux:input wire:model="name" id="name" label="{{ __('Name') }}" type="text" name="name" required autofocus autocomplete="name" placeholder="Nome completo" />
         </div>
 
         <!-- Email Address -->
@@ -78,7 +75,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="password"
                 required
                 autocomplete="new-password"
-                placeholder="Password"
+                placeholder="Senha"
             />
         </div>
 
@@ -92,7 +89,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="password_confirmation"
                 required
                 autocomplete="new-password"
-                placeholder="Confirm password"
+                placeholder="Confirme a senha"
             />
         </div>
 
@@ -104,7 +101,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     </form>
 
     <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        Already have an account?
-        <x-text-link href="{{ route('login') }}">Log in</x-text-link>
+        Já tem conta?
+        <x-text-link href="{{ route('login') }}">Entrar</x-text-link>
     </div>
 </div>

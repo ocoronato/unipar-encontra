@@ -40,7 +40,7 @@ new class extends Component {
 <section class="w-full">
     @include('partials.settings-heading')
 
-    <x-settings.layout heading="Update password" subheading="Ensure your account is using a long, random password to stay secure">
+    <x-settings.layout heading="Alterar senha" subheading="Use uma senha longa e difícil de adivinhar para manter sua conta segura">
         <form wire:submit="updatePassword" class="mt-6 space-y-6">
             <flux:input
                 wire:model="current_password"

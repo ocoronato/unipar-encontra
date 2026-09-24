@@ -44,9 +44,6 @@ new class extends Component {
 
             'registration_number' => ['nullable', 'alpha_num', 'max:20', Rule::unique(User::class)->ignore($user->id)],
             'course' => ['nullable', 'string', 'max:100'],
-        ], attributes: [
-            'registration_number' => 'RA / matrícula',
-            'course' => 'curso',
         ]);
 
         $validated['registration_number'] = $validated['registration_number'] ?: null;
@@ -71,7 +68,7 @@ new class extends Component {
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
+            $this->redirectIntended(default: route('home', absolute: false));
 
             return;
         }
@@ -85,7 +82,7 @@ new class extends Component {
 <section class="w-full">
     @include('partials.settings-heading')
 
-    <x-settings.layout heading="Profile" subheading="Update your name and email address">
+    <x-settings.layout heading="Perfil" subheading="Atualize seus dados de identificação">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" label="{{ __('Name') }}" type="text" name="name" required autofocus autocomplete="name" />
 

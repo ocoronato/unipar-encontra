@@ -18,4 +18,14 @@ enum ReturnRequestStatus: string
             self::Cancelled => 'Cancelada',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::Pending => 'amber',
+            self::Approved => 'green',
+            self::Rejected => 'red',
+            self::Cancelled => 'zinc',
+        };
+    }
 }

@@ -3,15 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Página inicial: pública (mostra apenas objetos aprovados).
+Volt::route('/', 'home')->name('home');
 
 Route::middleware(['auth'])->group(function () {
+    // Telas provisórias: serão substituídas pelos componentes das próximas etapas.
+    Route::view('buscar', 'coming-soon', ['title' => 'Buscar Objetos'])->name('items.search');
+    Route::view('objetos/perdido/novo', 'coming-soon', ['title' => 'Cadastrar Perdido'])->name('items.create.lost');
+    Route::view('objetos/encontrado/novo', 'coming-soon', ['title' => 'Cadastrar Encontrado'])->name('items.create.found');
+    Route::view('objetos/{item}', 'coming-soon', ['title' => 'Detalhes do Objeto'])->whereNumber('item')->name('items.show');
+    Route::view('meus-objetos', 'coming-soon', ['title' => 'Meus Objetos'])->name('items.mine');
+    Route::view('minhas-solicitacoes', 'coming-soon', ['title' => 'Minhas Solicitações'])->name('return-requests.mine');
+
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');

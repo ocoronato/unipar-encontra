@@ -39,10 +39,10 @@ class AdminAccessTest extends TestCase
 
     public function test_admin_menu_link_is_only_shown_to_admins(): void
     {
-        $this->actingAs(User::factory()->create())->get(route('dashboard'))
+        $this->actingAs(User::factory()->create())->get(route('home'))
             ->assertDontSee(route('admin.dashboard'));
 
-        $this->actingAs(User::factory()->admin()->create())->get(route('dashboard'))
+        $this->actingAs(User::factory()->admin()->create())->get(route('home'))
             ->assertSee(route('admin.dashboard'));
     }
 

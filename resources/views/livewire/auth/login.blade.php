@@ -39,7 +39,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('home', absolute: false), navigate: true);
     }
 
     /**
@@ -73,7 +73,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-6">
-    <x-auth-header title="Log in to your account" description="Enter your email and password below to log in" />
+    <x-auth-header title="Entrar na sua conta" description="Informe seu e-mail e senha para acessar" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -91,7 +91,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="password"
                 required
                 autocomplete="current-password"
-                placeholder="Password"
+                placeholder="Senha"
             />
 
             @if (Route::has('password.request'))
@@ -110,7 +110,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     </form>
 
     <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        Don't have an account?
-        <x-text-link href="{{ route('register') }}">Sign up</x-text-link>
+        Ainda não tem conta?
+        <x-text-link href="{{ route('register') }}">Criar conta</x-text-link>
     </div>
 </div>

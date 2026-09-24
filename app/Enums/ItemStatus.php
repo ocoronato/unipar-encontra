@@ -18,4 +18,14 @@ enum ItemStatus: string
             self::Cancelled => 'Cancelado',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::Active => 'blue',
+            self::InReturnProcess => 'amber',
+            self::Returned => 'green',
+            self::Cancelled => 'zinc',
+        };
+    }
 }

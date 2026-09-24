@@ -28,14 +28,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         session(['auth.password_confirmed_at' => time()]);
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('home', absolute: false), navigate: true);
     }
 }; ?>
 
 <div class="flex flex-col gap-6">
     <x-auth-header
-        title="Confirm password"
-        description="This is a secure area of the application. Please confirm your password before continuing."
+        title="Confirmar senha"
+        description="Esta é uma área protegida. Confirme sua senha para continuar."
     />
 
     <!-- Session Status -->
@@ -52,7 +52,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="password"
                 required
                 autocomplete="new-password"
-                placeholder="Password"
+                placeholder="Senha"
             />
         </div>
 
