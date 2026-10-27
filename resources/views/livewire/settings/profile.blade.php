@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Rules\UniparEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -39,7 +40,9 @@ new class extends Component {
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($user->id)
+                Rule::unique(User::class)->ignore($user->id),
+                // Ao trocar o e-mail, só vale e-mail da UNIPAR (contas antigas continuam funcionando).
+                Rule::when($this->email !== $user->email, [new UniparEmail]),
             ],
 
             'registration_number' => ['nullable', 'alpha_num', 'max:20', Rule::unique(User::class)->ignore($user->id)],

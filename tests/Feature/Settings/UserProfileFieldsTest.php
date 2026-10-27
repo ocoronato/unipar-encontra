@@ -17,7 +17,7 @@ class UserProfileFieldsTest extends TestCase
     {
         Volt::test('auth.register')
             ->set('name', 'Maria')
-            ->set('email', 'maria@example.com')
+            ->set('email', 'maria@unipar.br')
             ->set('registration_number', '12345678')
             ->set('course', 'Sistemas de Informação')
             ->set('password', 'password')
@@ -25,7 +25,7 @@ class UserProfileFieldsTest extends TestCase
             ->call('register')
             ->assertHasNoErrors();
 
-        $user = User::where('email', 'maria@example.com')->first();
+        $user = User::where('email', 'maria@unipar.br')->first();
         $this->assertSame('12345678', $user->registration_number);
         $this->assertSame(UserRole::User, $user->role);
     }
@@ -36,7 +36,7 @@ class UserProfileFieldsTest extends TestCase
 
         Volt::test('auth.register')
             ->set('name', 'Maria')
-            ->set('email', 'maria@example.com')
+            ->set('email', 'maria@unipar.br')
             ->set('registration_number', '12345678')
             ->set('password', 'password')
             ->set('password_confirmation', 'password')
@@ -46,7 +46,7 @@ class UserProfileFieldsTest extends TestCase
 
     public function test_two_users_can_register_without_ra(): void
     {
-        foreach (['a@example.com', 'b@example.com'] as $email) {
+        foreach (['a@unipar.br', 'b@unipar.br'] as $email) {
             Volt::test('auth.register')
                 ->set('name', 'Sem RA')
                 ->set('email', $email)

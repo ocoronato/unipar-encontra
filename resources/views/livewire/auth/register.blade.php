@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Rules\UniparEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            // Somente e-mails da UNIPAR (regra em App\Rules\UniparEmail).
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', new UniparEmail, 'unique:' . User::class],
             'registration_number' => ['nullable', 'alpha_num', 'max:20', 'unique:' . User::class],
             'course' => ['nullable', 'string', 'max:100'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
@@ -56,7 +58,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         <!-- Email Address -->
         <div class="grid gap-2">
-            <flux:input wire:model="email" id="email" label="{{ __('Email address') }}" type="email" name="email" required autocomplete="email" placeholder="email@example.com" />
+            <flux:input wire:model="email" id="email" label="{{ __('Email address') }}" description="Use o seu e-mail da UNIPAR." type="email" name="email" required autocomplete="email" placeholder="nome@unipar.br" />
         </div>
 
         <!-- RA / matrícula e curso (opcionais) -->

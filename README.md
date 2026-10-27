@@ -53,6 +53,8 @@ Devolução:     solicitação pendente → aprovada (objeto "em processo de dev
 - Ao confirmar a devolução, as outras solicitações pendentes do objeto são rejeitadas automaticamente.
 - Nada do histórico é apagado: categorias/locais em uso não podem ser excluídos (apenas desativados) e
   usuários com publicações ou solicitações não podem excluir a própria conta.
+- O cadastro só aceita **e-mails da UNIPAR**: o domínio, depois do @, precisa ter `unipar` como uma de
+  suas partes (`nome@unipar.br`, `nome@edu.unipar.br`). A regra também vale ao trocar o e-mail no perfil.
 
 ## Instalação (desenvolvimento)
 
@@ -86,6 +88,8 @@ Criadas pelos seeders **apenas fora de produção** (senhas de teste, não use e
 |---|---|---|
 | Administrador | `admin@unipar-encontra.test` | `password` |
 | Aluno | `aluno@unipar-encontra.test` | `password` |
+
+Essas contas são criadas direto pelo seeder. Pelo formulário de cadastro, só e-mails da UNIPAR são aceitos.
 
 O seeder também cria categorias, locais e objetos/solicitações de exemplo.
 `php artisan migrate:fresh --seed` recria o banco do zero (**apaga todos os dados**).
