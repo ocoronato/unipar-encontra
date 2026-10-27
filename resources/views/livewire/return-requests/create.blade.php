@@ -80,7 +80,7 @@ new #[Title('Solicitar Devolução')] class extends Component {
                 placeholder="Ex.: É minha carteira marrom. Dentro há uma foto 3x4, um cartão de ônibus e um recibo da cantina. Perdi na terça, depois da aula no Bloco 2."
             />
 
-            <flux:callout icon="light-bulb" color="blue">
+            <flux:callout icon="light-bulb" color="amber">
                 <flux:callout.text>
                     Informe detalhes que só o dono saberia: marcas, arranhões, adesivos, o que havia dentro,
                     quando e onde você perdeu. Sua mensagem é vista apenas pela administração.

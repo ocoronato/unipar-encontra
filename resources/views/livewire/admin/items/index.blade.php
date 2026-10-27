@@ -245,7 +245,7 @@ new #[Title('Objetos')] class extends Component {
                             @endunless
 
                             @unless ($reviewing->approval_status === \App\Enums\ApprovalStatus::Approved)
-                                <flux:button variant="primary" icon="check" wire:click="approve">Aprovar</flux:button>
+                                <flux:button variant="primary" color="zinc" icon="check" wire:click="approve">Aprovar</flux:button>
                             @endunless
                         </div>
                     </div>

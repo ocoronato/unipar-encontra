@@ -152,17 +152,18 @@ new class extends Component {
             {{-- Ação disponível para o usuário atual --}}
             @switch($action)
                 @case('claim')
-                    <flux:card class="space-y-3">
+                    {{-- Borda com feixe de luz (border-beam) para chamar atenção para a ação principal --}}
+                    <flux:card class="border-beam space-y-3">
                         <flux:heading>Reconheceu este objeto?</flux:heading>
                         <flux:text>Solicite a devolução informando detalhes que comprovem que ele é seu. A administração analisará o pedido.</flux:text>
-                        <flux:button variant="primary" icon="hand-raised" :href="route('return-requests.create', $item)" wire:navigate>
+                        <flux:button variant="primary" icon="hand-raised" class="btn-sheen shadow-[0_0_24px_-6px_rgb(220_38_38/0.8)]" :href="route('return-requests.create', $item)" wire:navigate>
                             Este objeto é meu
                         </flux:button>
                     </flux:card>
                     @break
 
                 @case('requested')
-                    <flux:callout icon="clock" color="blue" heading="Você já solicitou a devolução deste objeto.">
+                    <flux:callout icon="clock" color="zinc" heading="Você já solicitou a devolução deste objeto.">
                         <flux:callout.text>
                             Acompanhe o andamento em <flux:link :href="route('return-requests.mine')" wire:navigate>Minhas Solicitações</flux:link>.
                         </flux:callout.text>

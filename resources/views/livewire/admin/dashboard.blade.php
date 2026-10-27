@@ -61,14 +61,15 @@ new #[Title('Administração')] class extends Component {
     <div class="@container space-y-6">
         <div class="grid gap-4 @lg:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-4">
             @foreach ($cards as $card)
-                <a href="{{ $card['href'] }}" wire:navigate class="group rounded-xl focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none">
-                    <flux:card class="flex h-full items-center gap-4 transition group-hover:border-accent">
-                        <div class="rounded-lg bg-zinc-100 p-3 dark:bg-zinc-700">
-                            <flux:icon :name="$card['icon']" class="size-6 text-zinc-600 dark:text-zinc-300" />
+                <a href="{{ $card['href'] }}" wire:navigate class="fade-up group rounded-xl focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none" style="--delay: {{ $loop->index * 50 }}ms">
+                    <flux:card x-data x-spotlight class="spotlight flex h-full items-center gap-4 transition duration-300 group-hover:-translate-y-0.5 group-hover:border-red-500/50 group-hover:shadow-[0_14px_40px_-18px_rgb(220_38_38/0.6)]">
+                        <div class="rounded-lg bg-red-500/10 p-3 text-red-600 ring-1 ring-red-500/20 dark:text-red-400">
+                            <flux:icon :name="$card['icon']" class="size-6" />
                         </div>
                         <div>
                             <flux:text>{{ $card['label'] }}</flux:text>
-                            <flux:heading size="xl">{{ $card['value'] }}</flux:heading>
+                            {{-- Número que "sobe" até o valor (countUp no app.js); o HTML já traz o valor final. --}}
+                            <flux:heading size="xl"><span x-data="countUp({{ (int) $card['value'] }})" x-text="current">{{ $card['value'] }}</span></flux:heading>
                         </div>
                     </flux:card>
                 </a>

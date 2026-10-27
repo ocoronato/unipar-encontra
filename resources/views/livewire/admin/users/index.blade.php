@@ -88,7 +88,7 @@ new #[Title('Usuários')] class extends Component {
                     <flux:table.cell>{{ $user->course ?? '—' }}</flux:table.cell>
                     <flux:table.cell>{{ $user->lost_found_items_count }}</flux:table.cell>
                     <flux:table.cell>
-                        <flux:badge size="sm" :color="$user->isAdmin() ? 'indigo' : 'zinc'">{{ $user->role->label() }}</flux:badge>
+                        <flux:badge size="sm" :color="$user->isAdmin() ? 'red' : 'zinc'">{{ $user->role->label() }}</flux:badge>
                     </flux:table.cell>
                     <flux:table.cell align="end">
                         @can('changeRole', $user)

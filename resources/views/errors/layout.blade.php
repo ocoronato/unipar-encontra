@@ -3,7 +3,9 @@
     <head>
         @include('partials.head', ['title' => $title])
     </head>
-    <body class="flex min-h-screen items-center justify-center bg-zinc-50 p-6 dark:bg-zinc-900">
+    <body class="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-zinc-50 p-6 dark:bg-zinc-950">
+        <div aria-hidden="true" class="glow-red pointer-events-none absolute inset-0 -z-10 opacity-50 dark:opacity-100"></div>
+
         <div class="flex max-w-md flex-col items-center gap-4 text-center">
             <a href="{{ url('/') }}" class="flex items-center gap-2">
                 <x-app-logo />

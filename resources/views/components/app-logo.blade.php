@@ -1,4 +1,4 @@
-<div class="flex aspect-square size-9 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+<div class="flex aspect-square size-9 items-center justify-center rounded-lg bg-accent text-accent-foreground shadow-[0_0_20px_-4px_rgb(220_38_38/0.7)] print:shadow-none">
     <x-app-logo-icon class="size-6" />
 </div>
 <div class="ml-1 grid flex-1 text-left">

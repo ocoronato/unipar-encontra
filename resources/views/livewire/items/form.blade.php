@@ -209,7 +209,7 @@ new class extends Component {
     </div>
 
     @if ($isEditing)
-        <flux:callout icon="information-circle" color="blue" class="mb-6">
+        <flux:callout icon="information-circle" color="zinc" class="mb-6">
             <flux:callout.text>
                 Ao salvar, a publicação volta para análise da administração e fica fora da busca até ser aprovada novamente.
             </flux:callout.text>
@@ -260,7 +260,7 @@ new class extends Component {
             />
 
             @unless ($isLost)
-                <flux:callout icon="light-bulb" color="blue">
+                <flux:callout icon="light-bulb" color="amber">
                     <flux:callout.text>
                         Dica: não descreva detalhes que só o dono saberia (como o conteúdo de uma carteira).
                         Eles serão usados pela administração para confirmar quem é o verdadeiro dono.

@@ -31,15 +31,23 @@ new #[Title('Início')] class extends Component {
 }; ?>
 
 <div class="flex flex-col gap-10">
-    {{-- Destaque principal --}}
-    <section class="rounded-2xl bg-linear-to-br from-blue-700 to-blue-900 px-6 py-10 text-white shadow-sm sm:px-10 sm:py-14">
+    {{-- Destaque principal: sempre escuro, com brilho vermelho e grade (efeitos no app.css) --}}
+    <section class="fade-up relative isolate overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 px-6 py-12 text-white shadow-2xl shadow-red-950/30 sm:px-10 sm:py-16">
+        <div aria-hidden="true" class="glow-red animate-glow pointer-events-none absolute inset-0 -z-10"></div>
+        <div aria-hidden="true" class="bg-grid pointer-events-none absolute inset-0 -z-10"></div>
+
         <div class="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+            <span class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 py-1 pr-3 pl-2 text-xs font-medium tracking-wide text-red-200">
+                <img src="{{ asset('img/unipar/unipar-simbolo.png') }}" alt="" class="h-4 w-auto">
+                Achados e perdidos da UNIPAR
+            </span>
+
             <div class="flex items-center gap-3">
-                <x-app-logo-icon class="size-10" />
-                <h1 class="text-3xl font-bold tracking-wide sm:text-4xl">UNIPAR ENCONTRA</h1>
+                <x-app-logo-icon class="size-10 shrink-0 text-red-500 drop-shadow-[0_0_12px_rgb(239_68_68/0.6)]" />
+                <h1 class="text-shine text-3xl font-bold tracking-tight sm:text-5xl">UNIPAR ENCONTRA</h1>
             </div>
 
-            <p class="text-lg text-blue-100 sm:text-xl">
+            <p class="text-lg text-zinc-300 sm:text-xl">
                 Perdeu alguma coisa? Encontrou um objeto? Nós ajudamos a conectar.
             </p>
 
@@ -50,9 +58,9 @@ new #[Title('Início')] class extends Component {
                     type="search"
                     name="q"
                     placeholder="Ex.: carteira, chave, celular..."
-                    class="w-full rounded-lg border-0 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                    class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-zinc-400 backdrop-blur transition focus:border-red-500/60 focus:bg-white/10 focus:ring-4 focus:ring-red-500/20 focus:outline-none"
                 >
-                <button type="submit" class="flex items-center gap-2 rounded-lg bg-blue-950 px-5 font-medium text-white hover:bg-black">
+                <button type="submit" class="btn-sheen flex shrink-0 items-center gap-2 rounded-xl bg-red-600 px-5 font-semibold text-white shadow-[0_0_24px_-6px_rgb(220_38_38/0.8)] transition hover:bg-red-700">
                     <flux:icon.magnifying-glass variant="mini" />
                     <span class="max-sm:hidden">Buscar</span>
                 </button>
@@ -60,11 +68,11 @@ new #[Title('Início')] class extends Component {
 
             <div class="grid w-full max-w-xl gap-3 sm:grid-cols-2">
                 <a href="{{ route('items.create.lost') }}" wire:navigate
-                   class="flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-blue-800 shadow-sm transition hover:bg-blue-50">
+                   class="btn-sheen flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 font-semibold text-white shadow-[0_0_30px_-8px_rgb(220_38_38/0.9)] transition hover:-translate-y-0.5 hover:bg-red-700">
                     <flux:icon.exclamation-circle variant="mini" /> PERDI UM OBJETO
                 </a>
                 <a href="{{ route('items.create.found') }}" wire:navigate
-                   class="flex items-center justify-center gap-2 rounded-lg border-2 border-white px-5 py-3 font-semibold text-white transition hover:bg-white/10">
+                   class="btn-sheen flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-red-500/50 hover:bg-white/10">
                     <flux:icon.hand-raised variant="mini" /> ENCONTREI UM OBJETO
                 </a>
             </div>
@@ -88,7 +96,7 @@ new #[Title('Início')] class extends Component {
         @else
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach ($foundItems as $item)
-                    <x-item-card :item="$item" wire:key="found-{{ $item->id }}" />
+                    <x-item-card :item="$item" wire:key="found-{{ $item->id }}" style="--delay: {{ $loop->index * 60 }}ms" />
                 @endforeach
             </div>
         @endif
@@ -107,7 +115,7 @@ new #[Title('Início')] class extends Component {
 
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach ($lostItems as $item)
-                    <x-item-card :item="$item" wire:key="lost-{{ $item->id }}" />
+                    <x-item-card :item="$item" wire:key="lost-{{ $item->id }}" style="--delay: {{ $loop->index * 60 }}ms" />
                 @endforeach
             </div>
         </section>

@@ -16,8 +16,12 @@
             </div>
 
             <header class="mb-6 flex items-center justify-between gap-4 border-b border-zinc-300 pb-4">
-                <div class="flex items-center gap-2">
-                    <x-app-logo />
+                <div class="flex items-center gap-4">
+                    <img src="{{ asset('img/unipar/unipar-logo.png') }}" alt="UNIPAR – Universidade Paranaense" class="h-11 w-auto">
+                    <span class="h-10 w-px bg-zinc-300"></span>
+                    <div class="flex items-center gap-2">
+                        <x-app-logo />
+                    </div>
                 </div>
                 <p class="text-right text-xs text-zinc-500">
                     Gerado em {{ now()->format('d/m/Y') }} às {{ now()->format('H:i') }}<br>

@@ -3,8 +3,8 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-zinc-50 dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900 print:hidden">
+    <body class="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+        <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-white dark:border-white/10 dark:bg-zinc-900/60 print:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
             <a href="{{ route('home') }}" class="mr-5 flex items-center gap-2" wire:navigate>
@@ -53,7 +53,7 @@
         </flux:sidebar>
 
         {{-- Cabeçalho do celular --}}
-        <flux:header class="border-b border-zinc-200 bg-white lg:hidden dark:border-zinc-700 dark:bg-zinc-900 print:hidden">
+        <flux:header class="border-b border-zinc-200 bg-white lg:hidden dark:border-white/10 dark:bg-zinc-950/90 print:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <a href="{{ route('home') }}" class="ml-2 flex items-center gap-2" wire:navigate>

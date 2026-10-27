@@ -86,7 +86,7 @@ new #[Title('Minhas Solicitações')] class extends Component {
                         @if ($request->itemReturn)
                             <flux:callout variant="success" icon="check-circle" :heading="'Objeto entregue em '.$request->itemReturn->returned_at->format('d/m/Y').'.'" />
                         @elseif ($request->status === \App\Enums\ReturnRequestStatus::Approved)
-                            <flux:callout color="blue" icon="information-circle" heading="Solicitação aprovada!">
+                            <flux:callout color="green" icon="information-circle" heading="Solicitação aprovada!">
                                 <flux:callout.text>Procure a administração do UNIPAR ENCONTRA para retirar o objeto.</flux:callout.text>
                             </flux:callout>
                         @endif

@@ -278,7 +278,7 @@ new #[Title('Solicitações')] class extends Component {
                                 </flux:button>
                             @endcan
                             @can('approve', $reviewing)
-                                <flux:button variant="primary" icon="check" wire:click="approve">Aprovar</flux:button>
+                                <flux:button variant="primary" color="zinc" icon="check" wire:click="approve">Aprovar</flux:button>
                             @endcan
                         </div>
                     </div>
@@ -294,7 +294,7 @@ new #[Title('Solicitações')] class extends Component {
                         <flux:input type="datetime-local" wire:model="returnedAt" label="Data e hora da entrega" max="{{ now()->format('Y-m-d\TH:i') }}" />
                         <flux:textarea wire:model="returnNotes" label="Observações (opcional)" rows="2" maxlength="1000" />
                         <div class="flex justify-end">
-                            <flux:button variant="primary" icon="check-badge" wire:click="confirmReturn">Confirmar devolução</flux:button>
+                            <flux:button variant="primary" color="zinc" icon="check-badge" wire:click="confirmReturn">Confirmar devolução</flux:button>
                         </div>
                     </div>
                 @endcan
